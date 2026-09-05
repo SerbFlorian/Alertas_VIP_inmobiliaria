@@ -1,0 +1,55 @@
+{
+  "name": "alertas-vip",
+  "version": "1.0.0",
+  "description": "Bot de alertas inmobiliarias VIP para Telegram",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "dev": "ts-node-dev --respawn --transpile-only src/index.ts",
+    "studio": "prisma studio --hostname 0.0.0.0 --port 5555",
+    "verify:system": "bash ./scripts/verify-system.sh",
+    "ops:notify:admin": "bash ./scripts/admin-notify.sh \"Test Ops\" \"Mensaje de prueba\"",
+    "ops:verify:notify": "bash ./scripts/verify-and-notify.sh",
+    "ops:monthly:reminder": "bash ./scripts/monthly-admin-reminders.sh",
+    "scraper:test": "ts-node src/jobs/scraper.job.ts",
+    "notifier:test": "ts-node src/jobs/notifier.job.ts",
+    "cleanup": "ts-node src/jobs/cleanup.job.ts",
+    "backfill:zonas": "ts-node src/scripts/backfill-zonas.ts",
+    "backfill:zonas:prod": "node dist/scripts/backfill-zonas.js",
+    "backfill:rentumo-cp": "ts-node src/scripts/backfill-rentumo-cp.ts",
+    "backfill:rentumo-cp:prod": "node dist/scripts/backfill-rentumo-cp.js",
+    "enrich:zonas": "ts-node src/scripts/enrich-zonas-nominatim.ts",
+    "enrich:zonas:prod": "node dist/scripts/enrich-zonas-nominatim.js",
+    "backup:now": "ts-node src/scripts/backup.ts",
+    "backup:now:prod": "node dist/scripts/backup.js",
+    "restore:latest": "ts-node src/scripts/restore-from-r2.ts",
+    "restore:latest:prod": "node dist/scripts/restore-from-r2.js"
+  },
+  "dependencies": {
+    "@aws-sdk/client-s3": "^3.1101.0",
+    "@prisma/client": "^5.21.1",
+    "axios": "^1.7.9",
+    "cheerio": "^1.0.0",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "ioredis": "^6.0.0",
+    "node-cron": "^3.0.3",
+    "openai": "^7.3.0",
+    "prisma": "^5.21.1",
+    "stripe": "^17.5.0",
+    "telegraf": "^4.16.3",
+    "winston": "^3.19.0"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.0",
+    "@types/ioredis": "^4.28.10",
+    "@types/node": "^22.10.7",
+    "@types/node-cron": "^3.0.11",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^5.7.3"
+  },
+  "overrides": {
+    "uuid": "^11.1.1"
+  }
+}

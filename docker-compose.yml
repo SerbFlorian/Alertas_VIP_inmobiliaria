@@ -1,0 +1,283 @@
+# ============================================
+# Alertas VIP — Docker Compose
+# - app/scraper: FS escribible (Prisma Studio / tooling)
+# - redis: endurecido (read_only + cap_drop)
+# - db: caps mínimas Postgres
+# - db/redis/scraper sin ports en host
+# - scraper sin Stripe/R2
+# ============================================
+
+networks:
+  backend:
+    driver: bridge
+    # Stack interno: app ↔ db/redis/scraper (sin ports host salvo app loopback)
+  npm_proxy:
+    # Red de Nginx Proxy Manager (nombre real en el VPS)
+    external: true
+    name: ${NPM_NETWORK:-nginx-proxy_default}
+
+# Node app/scraper: sin read_only / sin cap_drop (Prisma Studio y tooling necesitan FS escribible).
+# Redis/DB siguen endurecidos abajo.
+x-node-runtime: &node-runtime
+  user: "1001:1001"
+  security_opt:
+    - no-new-privileges:true
+  read_only: false
+  pids_limit: 512
+  ulimits:
+    nproc: 1024
+    nofile:
+      soft: 2048
+      hard: 4096
+  ipc: "private"
+
+services:
+  # ── APP: bot, digests, Stripe, cleanup, privacy, R2 ──
+  alertas-vip:
+    <<: *node-runtime
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: alertas-vip-inmobiliaria-bot
+    restart: on-failure:5
+    env_file:
+      - .env
+    environment:
+      NODE_ENV: production
+      APP_ROLE: app
+      WORKER_MODE: app
+      PORT: "3001"
+      TZ: Europe/Madrid
+      HOME: /tmp
+      TMPDIR: /tmp
+      npm_config_cache: /tmp/npm-cache
+      LOG_DIR: /app/logs
+      DATABASE_URL: postgresql://alertas_user:${POSTGRES_PASSWORD}@db:5432/alertas_vip?schema=public
+      REDIS_URL: redis://:${REDIS_PASSWORD}@redis:6379
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      REDIS_PASSWORD: ${REDIS_PASSWORD}
+      AI_VIP_DAILY_MAX: "20"
+      AI_VIP_WEEKLY_MAX: "140"
+      AI_FREE_MAX: "3"
+    volumes:
+      - app-data:/app/data
+      - app-logs:/app/logs
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    ports:
+      # Solo loopback host — NPM entra por red Docker, no por 0.0.0.0
+      - "127.0.0.1:3001:3001"
+    networks:
+      - backend
+      - npm_proxy
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://localhost:3001/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 60s
+    mem_limit: 768m
+    mem_reservation: 192m
+    cpus: 0.75
+    deploy:
+      resources:
+        limits:
+          cpus: '0.75'
+          memory: 768M
+          pids: 512
+        reservations:
+          cpus: '0.10'
+          memory: 192M
+
+  # ── SCRAPER: sin env_file → no Stripe / R2 ──
+  scraper:
+    <<: *node-runtime
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: alertas-vip-inmobiliaria-scraper
+    restart: on-failure:5
+    environment:
+      NODE_ENV: production
+      APP_ROLE: scraper
+      WORKER_MODE: scraper
+      PORT: "3002"
+      TZ: Europe/Madrid
+      HOME: /tmp
+      TMPDIR: /tmp
+      npm_config_cache: /tmp/npm-cache
+      LOG_DIR: /app/logs
+      LOG_LEVEL: ${LOG_LEVEL:-info}
+      DATABASE_URL: postgresql://alertas_user:${POSTGRES_PASSWORD}@db:5432/alertas_vip?schema=public
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      REDIS_URL: redis://:${REDIS_PASSWORD}@redis:6379
+      REDIS_PASSWORD: ${REDIS_PASSWORD}
+      BRIGHTDATA_API_KEY: ${BRIGHTDATA_API_KEY:-}
+      BRIGHTDATA_ZONE: ${BRIGHTDATA_ZONE:-web_unlocker_vip}
+      BRIGHTDATA_COUNTRY: ${BRIGHTDATA_COUNTRY:-es}
+      BRIGHTDATA_ENABLED: ${BRIGHTDATA_ENABLED:-true}
+      SCRAPER_PAGES: ${SCRAPER_PAGES:-1}
+      SCRAPER_CONCURRENCY: ${SCRAPER_CONCURRENCY:-3}
+      REQUEST_DELAY_MS: ${REQUEST_DELAY_MS:-2000}
+      MAX_RETRIES: ${MAX_RETRIES:-1}
+      DEEP_SCRAPE_MAX_PER_PAGE: ${DEEP_SCRAPE_MAX_PER_PAGE:-2}
+      DEEP_SCRAPE_USE_BD: ${DEEP_SCRAPE_USE_BD:-false}
+    volumes:
+      - scraper-state:/app/data
+      - scraper-logs:/app/logs
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      alertas-vip:
+        condition: service_healthy
+    networks:
+      - backend
+    # Sin ports en host — no superficie de ataque externa
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://localhost:3002/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 40s
+    mem_limit: 768m
+    mem_reservation: 256m
+    cpus: 0.75
+    deploy:
+      resources:
+        limits:
+          cpus: '0.75'
+          memory: 768M
+          pids: 512
+        reservations:
+          cpus: '0.10'
+          memory: 256M
+
+  redis:
+    image: redis:7-alpine
+    container_name: alertas-vip-inmobiliaria-redis
+    restart: unless-stopped
+    user: "999:999"
+    # Solo la pass — NUNCA env_file completo (evitar Stripe/R2 en Redis)
+    environment:
+      REDIS_PASSWORD: ${REDIS_PASSWORD}
+    command:
+      - sh
+      - -c
+      - exec redis-server --requirepass "$$REDIS_PASSWORD" --save 60 1 --loglevel warning --maxmemory 96mb --maxmemory-policy allkeys-lru --protected-mode yes --bind 0.0.0.0
+    volumes:
+      - redis-data:/data
+    tmpfs:
+      - /tmp:size=16M,mode=1777
+    networks:
+      - backend
+    # Sin ports en host
+    healthcheck:
+      test: ["CMD-SHELL", "redis-cli -a \"$$REDIS_PASSWORD\" ping | grep -q PONG"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    read_only: true
+    pids_limit: 64
+    ulimits:
+      nproc: 128
+      nofile:
+        soft: 1024
+        hard: 2048
+    ipc: "private"
+    mem_limit: 128m
+    mem_reservation: 32m
+    cpus: 0.20
+    deploy:
+      resources:
+        limits:
+          cpus: '0.20'
+          memory: 128M
+          pids: 64
+        reservations:
+          cpus: '0.05'
+          memory: 32M
+
+  db:
+    image: postgres:15-alpine
+    container_name: alertas-vip-inmobiliaria-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: alertas_user
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: alertas_vip
+      POSTGRES_INITDB_ARGS: "--data-checksums"
+    command:
+      - postgres
+      - -c
+      - shared_buffers=256MB
+      - -c
+      - effective_cache_size=768MB
+      - -c
+      - work_mem=8MB
+      - -c
+      - maintenance_work_mem=128MB
+      - -c
+      - listen_addresses=*
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    networks:
+      - backend
+    # Sin ports en host — solo red Docker
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U alertas_user -d alertas_vip"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    # Postgres necesita caps mínimas de init; sin NET_ADMIN/SYS_ADMIN
+    cap_drop:
+      - ALL
+    cap_add:
+      - CHOWN
+      - DAC_OVERRIDE
+      - FOWNER
+      - SETGID
+      - SETUID
+    security_opt:
+      - no-new-privileges:true
+    pids_limit: 200
+    ulimits:
+      nproc: 512
+      nofile:
+        soft: 2048
+        hard: 4096
+    ipc: "private"
+    mem_limit: 1280m
+    mem_reservation: 512m
+    cpus: 0.90
+    deploy:
+      resources:
+        limits:
+          cpus: '0.90'
+          memory: 1280M
+          pids: 200
+        reservations:
+          cpus: '0.25'
+          memory: 512M
+
+volumes:
+  postgres-data:
+    driver: local
+  scraper-state:
+    driver: local
+  scraper-logs:
+    driver: local
+  app-data:
+    driver: local
+  app-logs:
+    driver: local
+  redis-data:
+    driver: local

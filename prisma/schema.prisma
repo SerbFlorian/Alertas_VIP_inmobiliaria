@@ -1,0 +1,126 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "linux-musl-openssl-3.0.x"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Piso {
+  id_piso                       String
+  portal                        String
+  titulo                        String
+  precio                        Int
+  enlace                        String
+  ciudad                        String
+  zona                          String?
+  zonaNorm                      String?
+  habitaciones                  Int?
+  tipo                          String?
+  publicado_en_telegram         Boolean   @default(false)
+  telegram_message_id           Int?
+  telegram_chat_id              String?
+  publicado_en_canal_publico    Boolean   @default(false)
+  telegram_public_message_id    Int?
+  fecha_publicacion_publica     DateTime?
+  resumen                       String?
+  created_at                    DateTime  @default(now())
+  updated_at                    DateTime  @updatedAt
+
+  @@id([id_piso, portal])
+  @@index([ciudad, zonaNorm, precio])
+  @@index([updated_at])
+  @@index([ciudad, tipo])
+  @@map("pisos")
+}
+
+model UsuarioVIP {
+  telegram_id         String    @id
+  email               String?   @unique
+  estado              String
+  stripe_customer_id  String?   @unique
+  filtro_ciudad       String?
+  filtro_zonas        String[]
+  filtro_precio_max   Int?
+  filtro_tipo         String?
+  filtro_habitaciones Int?
+  dailyAiRequests     Int       @default(0)
+  weeklyAiRequests    Int       @default(0)
+  lastAiRequestDate   DateTime?
+  freeAiUsed          Int       @default(0)
+  /// VIP: alternativas por enlace caído (máx. 1/día, se reinicia cada día)
+  dailyBrokenLinkRecoveries Int @default(0)
+  /// VIP: recuperaciones de anuncio perdido con ficha+link (máx. 3/día)
+  dailyAdRecoveries   Int       @default(0)
+  lastRecoveryQuotaDate DateTime?
+  created_at          DateTime  @default(now())
+  updated_at          DateTime  @updatedAt
+  cancel_at           DateTime?
+
+  /// /horario — días ISO 1=Lun … 7=Dom (default toda la semana)
+  digest_days         Int[]     @default([1, 2, 3, 4, 5, 6, 7])
+  /// Hora inicio inclusiva Europe/Madrid (default 8)
+  digest_start_hour   Int       @default(8)
+  /// Hora fin exclusiva Europe/Madrid (default 21)
+  digest_end_hour     Int       @default(21)
+  /// Intervalo entre alertas regulares en horas 1|2|3|4 (default 2)
+  digest_interval_h   Int       @default(2)
+
+  @@map("usuarios_vip")
+}
+
+model InventoryStats {
+  id        Int      @id @default(autoincrement())
+  ciudad    String
+  zona      String
+  zonaNorm  String
+  count     Int
+  minPrice  Int?
+  maxPrice  Int?
+  updatedAt DateTime @updatedAt
+
+  @@unique([ciudad, zonaNorm])
+  @@map("inventory_stats")
+}
+
+
+model ScraperLog {
+  id                Int       @id @default(autoincrement())
+  portal            String
+  ciudad            String
+  url               String
+  pisos_encontrados Int
+  pisos_nuevos      Int
+  error             String?
+  duracion_ms       Int?
+  ejecutado_en      DateTime  @default(now())
+
+  @@map("scraper_log")
+}
+
+model NotificacionEnviada {
+  id            Int      @id @default(autoincrement())
+  telegram_id   String
+  id_piso       String
+  portal        String
+  enviado_en    DateTime @default(now())
+
+  @@unique([telegram_id, id_piso, portal])
+  @@map("notificaciones_enviadas")
+}
+
+/// Clave/valor para estado del bot (p. ej. message_id de la cajita VIP admin).
+model AppMeta {
+  key       String   @id
+  value     String
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("app_meta")
+}
+
+

@@ -1,0 +1,723 @@
+{
+  "barcelona": {
+    "sufijo": "BCN",
+    "zonas": [
+      {
+        "nombre": "Ciutat Vella",
+        "aliases": [
+          "Ciutat Vella",
+          "El Raval",
+          "Raval",
+          "Gòtic",
+          "Gotico",
+          "Barri Gòtic",
+          "Barrio Gótico",
+          "Barceloneta",
+          "Sant Pere",
+          "Santa Caterina",
+          "La Ribera",
+          "Born",
+          "El Born"
+        ]
+      },
+      {
+        "nombre": "Eixample",
+        "aliases": [
+          "Eixample",
+          "L'Eixample",
+          "Ensanche",
+          "Dreta de l'Eixample",
+          "Esquerra de l'Eixample",
+          "Nova Esquerra",
+          "Antiga Esquerra",
+          "Sant Antoni",
+          "Sagrada Família",
+          "Sagrada Familia",
+          "Fort Pienc"
+        ]
+      },
+      {
+        "nombre": "Sants-Montjuïc",
+        "aliases": [
+          "Sants-Montjuïc",
+          "Sants-Montjuic",
+          "Sants",
+          "Poble Sec",
+          "Poble-sec",
+          "Badal",
+          "Hostafrancs",
+          "La Bordeta",
+          "Bordeta",
+          "Marina de Port",
+          "La Marina",
+          "Font de la Guatlla",
+          "Montjuïc",
+          "Montjuic"
+        ]
+      },
+      {
+        "nombre": "Les Corts",
+        "aliases": [
+          "Les Corts",
+          "Maternitat",
+          "Sant Ramon",
+          "Pedralbes"
+        ]
+      },
+      {
+        "nombre": "Sarrià-Sant Gervasi",
+        "aliases": [
+          "Sarrià-Sant Gervasi",
+          "Sarria-Sant Gervasi",
+          "Sarrià",
+          "Sarria",
+          "Sant Gervasi",
+          "Galvany",
+          "Bonanova",
+          "El Putxet",
+          "Putxet",
+          "Farró",
+          "Farro",
+          "Tres Torres",
+          "Vallvidrera",
+          "Tibidabo",
+          "Les Tres Torres"
+        ]
+      },
+      {
+        "nombre": "Gràcia",
+        "aliases": [
+          "Gràcia",
+          "Gracia",
+          "Vila de Gràcia",
+          "Camp d'en Grassot",
+          "Gràcia Nova",
+          "La Salut",
+          "Vallcarca",
+          "Penitents",
+          "El Coll",
+          "Coll"
+        ]
+      },
+      {
+        "nombre": "Horta-Guinardó",
+        "aliases": [
+          "Horta-Guinardó",
+          "Horta-Guinardo",
+          "Horta",
+          "Guinardó",
+          "Guinardo",
+          "Baix Guinardó",
+          "Can Baró",
+          "El Carmel",
+          "Carmel",
+          "Font d'en Fargues",
+          "La Teixonera",
+          "Teixonera",
+          "Vall d'Hebron"
+        ]
+      },
+      {
+        "nombre": "Nou Barris",
+        "aliases": [
+          "Nou Barris",
+          "Vilapicina",
+          "Torre Llobeta",
+          "Porta",
+          "Turó de la Peira",
+          "Can Peguera",
+          "La Guineueta",
+          "Guineueta",
+          "Canyelles",
+          "Les Roquetes",
+          "Roquetes",
+          "Verdun",
+          "La Prosperitat",
+          "Prosperitat",
+          "Trinitat Nova",
+          "Torre Baró",
+          "Ciutat Meridiana",
+          "Vallbona"
+        ]
+      },
+      {
+        "nombre": "Sant Andreu",
+        "aliases": [
+          "Sant Andreu",
+          "Trinitat Vella",
+          "Bon Pastor",
+          "Baró de Viver",
+          "Navas",
+          "El Congrés",
+          "Congrés",
+          "Els Indians",
+          "Indians",
+          "La Sagrera",
+          "Sagrera"
+        ]
+      },
+      {
+        "nombre": "Sant Martí",
+        "aliases": [
+          "Sant Martí",
+          "Sant Marti",
+          "Camp de l'Arpa",
+          "El Clot",
+          "Clot",
+          "Poblenou",
+          "Poble Nou",
+          "El Poblenou",
+          "La Llacuna",
+          "Llacuna",
+          "Vila Olímpica",
+          "Villa Olímpica",
+          "Bogatell",
+          "Diagonal Mar",
+          "Front Marítim",
+          "El Besòs",
+          "Besòs",
+          "El Maresme",
+          "Maresme",
+          "Provençals",
+          "La Verneda"
+        ]
+      }
+    ]
+  },
+  "madrid": {
+    "sufijo": "MAD",
+    "zonas": [
+      {
+        "nombre": "Centro",
+        "aliases": [
+          "Centro",
+          "Palacio",
+          "Embajadores",
+          "Cortes",
+          "Justicia",
+          "Universidad",
+          "Sol",
+          "Malasaña",
+          "Malasana",
+          "Chueca",
+          "Lavapiés",
+          "Lavapies",
+          "Huertas",
+          "Austrias"
+        ]
+      },
+      {
+        "nombre": "Arganzuela",
+        "aliases": [
+          "Arganzuela",
+          "Imperial",
+          "Acacias",
+          "Chopera",
+          "Legazpi",
+          "Delicias",
+          "Palos de Moguer",
+          "Atocha"
+        ]
+      },
+      {
+        "nombre": "Retiro",
+        "aliases": [
+          "Retiro",
+          "Pacífico",
+          "Pacifico",
+          "Adelfas",
+          "Estrella",
+          "Ibiza",
+          "Jerónimos",
+          "Jeronimos",
+          "Niño Jesús",
+          "Nino Jesus"
+        ]
+      },
+      {
+        "nombre": "Salamanca",
+        "aliases": [
+          "Salamanca",
+          "Recoletos",
+          "Goya",
+          "Fuente del Berro",
+          "Guindalera",
+          "Lista",
+          "Castellana"
+        ]
+      },
+      {
+        "nombre": "Chamartín",
+        "aliases": [
+          "Chamartín",
+          "Chamartin",
+          "El Viso",
+          "Prosperidad",
+          "Ciudad Jardín",
+          "Ciudad Jardin",
+          "Hispanoamérica",
+          "Hispanoamerica",
+          "Nueva España",
+          "Nueva Espana",
+          "Castilla"
+        ]
+      },
+      {
+        "nombre": "Tetuán",
+        "aliases": [
+          "Tetuán",
+          "Tetuan",
+          "Bellas Vistas",
+          "Cuatro Caminos",
+          "Castillejos",
+          "Almenara",
+          "Valdeacederas",
+          "Berruguete"
+        ]
+      },
+      {
+        "nombre": "Chamberí",
+        "aliases": [
+          "Chamberí",
+          "Chamberi",
+          "Gaztambide",
+          "Arapiles",
+          "Trafalgar",
+          "Almagro",
+          "Ríos Rosas",
+          "Rios Rosas",
+          "Vallehermoso"
+        ]
+      },
+      {
+        "nombre": "Fuencarral-El Pardo",
+        "aliases": [
+          "Fuencarral-El Pardo",
+          "Fuencarral",
+          "El Pardo",
+          "Fuentelarreina",
+          "Peñagrande",
+          "Penagrande",
+          "Pilar",
+          "La Paz",
+          "Valverde",
+          "Mirasierra",
+          "El Goloso"
+        ]
+      },
+      {
+        "nombre": "Moncloa-Aravaca",
+        "aliases": [
+          "Moncloa-Aravaca",
+          "Moncloa",
+          "Aravaca",
+          "Casa de Campo",
+          "Argüelles",
+          "Arguelles",
+          "Ciudad Universitaria",
+          "Valdezarza",
+          "Valdemarín",
+          "Valdemarin",
+          "El Plantío",
+          "El Plantio"
+        ]
+      },
+      {
+        "nombre": "Latina",
+        "aliases": [
+          "Latina",
+          "Los Cármenes",
+          "Los Carmenes",
+          "Puerta del Ángel",
+          "Puerta del Angel",
+          "Lucero",
+          "Aluche",
+          "Campamento",
+          "Cuatro Vientos",
+          "Las Águilas",
+          "Las Aguilas"
+        ]
+      },
+      {
+        "nombre": "Carabanchel",
+        "aliases": [
+          "Carabanchel",
+          "Comillas",
+          "Opañel",
+          "Opanel",
+          "San Isidro",
+          "Vista Alegre",
+          "Puerta Bonita",
+          "Buenavista",
+          "Abrantes"
+        ]
+      },
+      {
+        "nombre": "Usera",
+        "aliases": [
+          "Usera",
+          "Orcasitas",
+          "Orcasur",
+          "San Fermín",
+          "San Fermin",
+          "Almendrales",
+          "Moscardó",
+          "Moscardo",
+          "Zofío",
+          "Zofio",
+          "Pradolongo"
+        ]
+      },
+      {
+        "nombre": "Puente de Vallecas",
+        "aliases": [
+          "Puente de Vallecas",
+          "Vallecas",
+          "Entrevías",
+          "Entreviás",
+          "San Diego",
+          "Palomeras",
+          "Palomeras Bajas",
+          "Palomeras Sureste",
+          "Portazgo",
+          "Numancia"
+        ]
+      },
+      {
+        "nombre": "Moratalaz",
+        "aliases": [
+          "Moratalaz",
+          "Pavones",
+          "Horcajo",
+          "Marroquina",
+          "Media Legua",
+          "Fontarrón",
+          "Fontarron",
+          "Vinateros"
+        ]
+      },
+      {
+        "nombre": "Ciudad Lineal",
+        "aliases": [
+          "Ciudad Lineal",
+          "Ventas",
+          "Pueblo Nuevo",
+          "Quintana",
+          "Concepción",
+          "Concepcion",
+          "San Pascual",
+          "San Juan Bautista",
+          "Colina",
+          "Atalaya",
+          "Costillares"
+        ]
+      },
+      {
+        "nombre": "Hortaleza",
+        "aliases": [
+          "Hortaleza",
+          "Palomas",
+          "Piovera",
+          "Canillas",
+          "Pinar del Rey",
+          "Apóstol Santiago",
+          "Apostol Santiago",
+          "Valdefuentes",
+          "Sanchinarro",
+          "Valdebebas"
+        ]
+      },
+      {
+        "nombre": "Villaverde",
+        "aliases": [
+          "Villaverde",
+          "San Andrés",
+          "San Andres",
+          "Villaverde Alto",
+          "San Cristóbal",
+          "San Cristobal",
+          "Butarque",
+          "Los Rosales",
+          "Los Ángeles",
+          "Los Angeles"
+        ]
+      },
+      {
+        "nombre": "Villa de Vallecas",
+        "aliases": [
+          "Villa de Vallecas",
+          "Casco Histórico de Vallecas",
+          "Santa Eugenia",
+          "Ensanche de Vallecas"
+        ]
+      },
+      {
+        "nombre": "Vicálvaro",
+        "aliases": [
+          "Vicálvaro",
+          "Vicalvaro",
+          "Valdebernardo",
+          "Valderrivas",
+          "El Cañaveral",
+          "El Canaveral"
+        ]
+      },
+      {
+        "nombre": "San Blas-Canillejas",
+        "aliases": [
+          "San Blas-Canillejas",
+          "San Blas",
+          "Canillejas",
+          "Simancas",
+          "Hellín",
+          "Hellin",
+          "Amposta",
+          "Arcos",
+          "Rosas",
+          "Rejas",
+          "Salvador"
+        ]
+      },
+      {
+        "nombre": "Barajas",
+        "aliases": [
+          "Barajas",
+          "Alameda de Osuna",
+          "Aeropuerto",
+          "Timón",
+          "Timon",
+          "Corralejos"
+        ]
+      }
+    ]
+  },
+  "valencia": {
+    "sufijo": "VLC",
+    "zonas": [
+      {
+        "nombre": "Ciutat Vella",
+        "aliases": [
+          "Ciutat Vella",
+          "La Seu",
+          "La Xerea",
+          "El Carmen",
+          "El Carme",
+          "El Pilar",
+          "El Mercat",
+          "Sant Francesc",
+          "Centro Histórico",
+          "Centro Historico"
+        ]
+      },
+      {
+        "nombre": "Eixample",
+        "aliases": [
+          "Eixample",
+          "L'Eixample",
+          "Ensanche",
+          "Ruzafa",
+          "Russafa",
+          "El Pla del Remei",
+          "Gran Vía",
+          "Gran Via"
+        ]
+      },
+      {
+        "nombre": "Extramurs",
+        "aliases": [
+          "Extramurs",
+          "El Botànic",
+          "El Botanic",
+          "La Roqueta",
+          "La Petxina",
+          "Arrancapins"
+        ]
+      },
+      {
+        "nombre": "Campanar",
+        "aliases": [
+          "Campanar",
+          "Les Tendetes",
+          "El Calvari",
+          "Sant Pau",
+          "Nou Campanar"
+        ]
+      },
+      {
+        "nombre": "La Saïdia",
+        "aliases": [
+          "La Saïdia",
+          "La Saidia",
+          "Marxalenes",
+          "Morvedre",
+          "Trinitat",
+          "Tormos",
+          "Sant Antoni"
+        ]
+      },
+      {
+        "nombre": "El Pla del Real",
+        "aliases": [
+          "El Pla del Real",
+          "Exposició",
+          "Exposicion",
+          "Mestalla",
+          "Jaume Roig",
+          "Ciutat Universitària",
+          "Ciutat Universitaria"
+        ]
+      },
+      {
+        "nombre": "L'Olivereta",
+        "aliases": [
+          "L'Olivereta",
+          "Olivereta",
+          "Nou Moles",
+          "Soternes",
+          "Tres Forques",
+          "La Fontsanta",
+          "La Llum"
+        ]
+      },
+      {
+        "nombre": "Patraix",
+        "aliases": [
+          "Patraix",
+          "Sant Isidre",
+          "Vara de Quart",
+          "Safranar",
+          "Favara"
+        ]
+      },
+      {
+        "nombre": "Jesús",
+        "aliases": [
+          "Jesús",
+          "Jesus",
+          "La Raiosa",
+          "L'Hort de Senabre",
+          "La Creu Coberta",
+          "San Marcelino",
+          "Camí Real",
+          "Cami Real"
+        ]
+      },
+      {
+        "nombre": "Quatre Carreres",
+        "aliases": [
+          "Quatre Carreres",
+          "Monteolivete",
+          "En Corts",
+          "Malilla",
+          "Fuente de San Luis",
+          "Na Rovella",
+          "La Punta",
+          "Ciudad de las Artes",
+          "Ciutat de les Arts"
+        ]
+      },
+      {
+        "nombre": "Poblats Marítims",
+        "aliases": [
+          "Poblats Marítims",
+          "Poblats Maritims",
+          "El Grau",
+          "Cabañal",
+          "Cabanyal",
+          "El Cabanyal",
+          "El Canyamelar",
+          "Malvarrosa",
+          "La Malva-rosa",
+          "Beteró",
+          "Betero",
+          "Nazaret"
+        ]
+      },
+      {
+        "nombre": "Camins al Grau",
+        "aliases": [
+          "Camins al Grau",
+          "Ayora",
+          "Albors",
+          "La Creu del Grau",
+          "Camí Fondo",
+          "Cami Fondo",
+          "Penya-Roja",
+          "Penya Roja"
+        ]
+      },
+      {
+        "nombre": "Algirós",
+        "aliases": [
+          "Algirós",
+          "Algiros",
+          "L'Illa Perduda",
+          "Ciutat Jardí",
+          "Ciutat Jardi",
+          "L'Amistat",
+          "La Bega Baixa",
+          "La Carrasca"
+        ]
+      },
+      {
+        "nombre": "Benimaclet",
+        "aliases": ["Benimaclet", "Camí de Vera", "Cami de Vera"]
+      },
+      {
+        "nombre": "Rascanya",
+        "aliases": [
+          "Rascanya",
+          "Orriols",
+          "Torrefiel",
+          "Sant Llorenç",
+          "Sant Llorenc"
+        ]
+      },
+      {
+        "nombre": "Benicalap",
+        "aliases": ["Benicalap", "Ciutat Fallera"]
+      },
+      {
+        "nombre": "Poblats del Nord",
+        "aliases": [
+          "Poblats del Nord",
+          "Pobles del Nord",
+          "Benifaraig",
+          "Poble Nou",
+          "Carpesa",
+          "Cases de Bàrcena",
+          "Cases de Barcena",
+          "Mauella",
+          "Massarrojos",
+          "Borbotó",
+          "Borboto"
+        ]
+      },
+      {
+        "nombre": "Poblats de l'Oest",
+        "aliases": [
+          "Poblats de l'Oest",
+          "Pobles de l'Oest",
+          "Benimàmet",
+          "Benimamet",
+          "Beniferri"
+        ]
+      },
+      {
+        "nombre": "Poblats del Sud",
+        "aliases": [
+          "Poblats del Sud",
+          "Pobles del Sud",
+          "Pinedo",
+          "El Saler",
+          "El Palmar",
+          "El Perellonet",
+          "La Torre",
+          "Faitanar",
+          "Castellar-Oliveral",
+          "Horno de Alcedo"
+        ]
+      }
+    ]
+  }
+}
